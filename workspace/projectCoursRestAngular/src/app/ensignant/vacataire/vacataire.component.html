@@ -1,0 +1,331 @@
+            <div class="row">
+					                    <div class="col-md-12">
+					                        <div class="white-box" id="ok">
+					                        		<span style="margin-left:45%;">
+					                        		 <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Ajouter Un vacataire</button>
+													</span>
+											 </div>
+					                    </div>
+					                   <div class="row">
+						                    <div class="col-sm-12">
+						                        <div class="white-box">
+						                            <h3 class="box-title">List des vacataires</h3>
+						                          
+						                            <div class="table-responsive">
+						                                <table class="table display nowrap" id="example" >
+						                                    <thead>
+						                                        <tr>
+						                                            <th> Nom</th>
+						                                            <th> Prenom</th>
+						                                            <th> Rue</th>
+						                                            <th> Ville</th>
+						                                            <th> Service</th>
+						                                            <th> Grade</th>
+						                                            <th>Option</th>
+						                                            
+						                                        </tr>
+						                                    </thead>
+						                                    <tfoot>
+						                                        <tr>
+						                                            <th> Nom</th>
+						                                            <th> Prenom</th>
+						                                            <th> Rue</th>
+						                                            <th> Ville</th>
+						                                            <th> Service</th>
+						                                            <th> Grade</th>
+						                                            <th>Option</th>
+						                                            
+						                                        </tr>
+						                                   </tfoot>
+						                                    <tbody>
+						                                        <tr  *ngFor="let vacataire of lstvacataire">
+						                                            <td > {{vacataire.nom}}</td>
+						                                             <td > {{vacataire.prenom}}</td>
+						                                             <td > {{vacataire.adresse.rue}}</td>
+						                                             <td > {{vacataire.adresse.ville}}</td>
+						                                             <td > {{vacataire.servcie}}</td>
+						                                             <td > {{vacataire.garde}}</td>
+						                                            <td><a (click)="deletevacataire(vacataire.id)"><img src="assets/image/delete.png" /></a>  
+						                                            <a href="#" (click)="update(vacataire.id)" data-toggle="modal" data-target=".bd-modal-lg"><img src="assets/image/refresh.png"/></a>
+						                                            <a (click)="affichercours(vacataire.id)" ><img src="assets/image/bookshelf.png" data-toggle="modal" data-target=".list"/></a>  
+						                                            <a (click)="getcours(vacataire.id)" ><img src="assets/image/notebook.png"   data-toggle="modal" data-target=".addbook-to-vacataire" /></a>  
+						                                            </td>
+						                                            
+						                                        </tr>
+						                                    
+						                                    </tbody>
+						                                    
+						                                </table>
+						                            </div>
+						                        </div>
+						                    </div>
+						                </div>
+					                   
+
+					
+					                   
+					                    
+					                </div>
+					                <!-- Lisy des etudiants
+				<div class="modal fade bg-info lststudents" tabindex="-1" role="dialog" aria-hidden="true">
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Lists des etudiants qui poursuit le cours <strong id="lecour"></strong></h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            
+                            
+                            <div class="table-responsive">
+						                                <table class="table display nowrap" id="example" >
+						                                    <thead>
+						                                        <tr>
+						                                            <th> Nom</th>
+						                                            <th> Prenom</th>
+						                                            <th> Specialite</th>
+						                                            
+						                                        </tr>
+						                                    </thead>
+						                                    <tfoot>
+						                                        <tr>
+						                                            <th> Nom</th>
+						                                            <th> Prenom</th>
+						                                            <th> Specialite</th>
+						                                            
+						                                        </tr>
+						                                   </tfoot>
+						                                    <tbody id="ligne">
+						                                    </tbody>
+						                                    
+						                                </table>
+						                            </div>
+                            
+                            
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div> 
+					
+					 -->
+					             <div class="modal fade addbook-to-vacataire"  tabindex="-1" role="dialog" aria-labelledby="modalOneLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Ajouter un cours </h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                    <form #f="ngForm" (ngSubmit)="associate(f)" >   
+                        <div class="white-box">
+                            
+                                 <div class="form-group">
+                                    
+                                    <div class="col-md-12" id="new">
+                                        <label for="sel1">Select un cours:</label>
+									  <select class="form-control"  multiple="multiple"  name="lstchoix" [ngModel]="lstchoix" >
+									    <option *ngFor="let cour of listCours" [ngValue]="cour.id"  >{{cour.nom}}</option>
+									  </select> </div>
+                                	</div>
+                                
+                                 
+                                
+                          <hr/>
+                              <input type="submit" value="Enregistrer" id="click"  class="btn btn-primary" />
+                              <input type="hidden" id="idetudiant"  name="idetudiant" [(ngModel)]="idvacataire" class="btn btn-primary" />
+                        </div>
+                        </form>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div>
+					             
+				<!-- Ajouter un cours a un vacataires -->  
+					             	 <div class="modal fade list" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Lists des cours  </h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                                
+                                <table class="table display nowrap" id="example" >
+						                                    <thead>
+						                                        <tr>
+						                                            <th> Name</th>
+						                                            <th> Option</th>
+						                                            
+						                                        </tr>
+						                                    </thead>
+						                                  <tbody id="cours">
+						                                         <tr *ngFor="let cour of ListCours" >
+						                                            <td > {{cour.nom}}</td>
+						                                             <td > <a (click)="deletecoursvacataire(cour.id)"><img src="assets/image/delete.png" ></a></td>
+						                                        </tr>
+						                                    </tbody>
+						                                    <tfoot>
+						                                     <tr>
+						                                            <th> Name</th>
+						                                             <th> Option</th>
+						                                        </tr>
+						                                    </tfoot>
+						                                </table>     
+                                
+                                 
+                                
+                         
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div>
+					          
+					 		        
+				<!--  --> 
+					                
+				<!-- Ajouter nouveaux Cours  -->	
+				
+				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Nouveau Etdiant</h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            <form class="form-horizontal form-material" #fromvacataire="ngForm" (submit)="addvacataire(fromvacataire)">
+                                <div class="form-group">
+                                    <label class="col-md-12"> Nom</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre nom" name="nom"  #nomref="ngModel" [(ngModel)]="vacataire.nom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Prenon</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre prenom" name="prenom" #prenomref="ngModel" [(ngModel)]="vacataire.prenom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Adresse </label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse RUE " name="adresse.rue"   [(ngModel)]="vacataire.adresse.rue" class="form-control form-control-line"/> </div>
+                                        <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse vILLE" name="adresse.ville"  [(ngModel)]="vacataire.adresse.ville" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Service</label>
+                                    <div class="col-md-12"> 
+                                        <input type="text" placeholder="entrer votre service" name="service" [(ngModel)]="vacataire.servcie" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-12">grade</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre service" name="grade"    [(ngModel)]="vacataire.employeur" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                          <hr/>
+                              <input type="submit" value="Enregistrer"  class="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div> 
+					
+					
+						                
+				<!-- Modifeir nouveaux  -->	
+				
+				<div class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Update Etdiant</h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            <form class="form-horizontal form-material" #fromvacataire="ngForm" (submit)="updatevacataire(fromvacataire)">
+                               <div class="form-group">
+                                    <label class="col-md-12"> Nom</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre nom" name="nom" [(ngModel)]="vacataire.nom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Prenon</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre prenom" name="prenom"  [(ngModel)]="vacataire.prenom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Adresse </label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse RUE " name="adresse.rue"   [(ngModel)]="vacataire.adresse.rue" class="form-control form-control-line"/> </div>
+                                        <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse vILLE" name="adresse.ville"  [(ngModel)]="vacataire.adresse.ville" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Service</label>
+                                    <div class="col-md-12"> 
+                                        <input type="text" placeholder="entrer votre service" name="service"   [(ngModel)]="vacataire.servcie" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-12">grade</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre service" name="grade"   [(ngModel)]="vacataire.employeur" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                          <hr/>
+                              <input type="submit" value="Enregistrer"  class="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div> 

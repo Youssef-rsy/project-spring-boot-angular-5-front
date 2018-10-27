@@ -1,0 +1,296 @@
+ <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+     
+        <!-- Left navbar-header end -->
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title"> </h4> </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                
+                <!-- change content -->
+                
+                
+					                <div class="row">
+					                    <div class="col-md-12">
+					                        <div class="white-box" id="ok">
+					                        		<span style="margin-left:45%;">
+					                        		 <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Ajouter Un Etudiant</button>
+													</span>
+											 </div>
+					                    </div>
+					                   <div class="row">
+						                    <div class="col-sm-12">
+						                        <div class="white-box">
+						                            <h3 class="box-title">List des Etudiants</h3>
+						                          
+						                            <div class="table-responsive">
+						                                <table class="table display nowrap" id="example" >
+						                                    <thead>
+						                                        <tr>
+						                                            <th> Nom</th>
+						                                            <th> Prenom</th>
+						                                            <th> Rue</th>
+						                                            <th> Ville</th>
+						                                            <th> Specialite</th>
+						                                            <th>Option</th>
+						                                            
+						                                        </tr>
+						                                    </thead>
+						                                    <tfoot>
+						                                        <tr>
+						                                            <th> Nom</th>
+						                                            <th> Prenom</th>
+						                                            <th> Rue</th>
+						                                            <th> Ville</th>
+						                                            <th> Specialite</th>
+						                                            <th>Option</th>
+						                                            
+						                                        </tr>
+						                                   </tfoot>
+						                                    <tbody>
+						                                        <tr  *ngFor="let etudiant of listEtudiant">
+						                                            <td >{{etudiant.nom}} </td>
+						                                             <td > {{etudiant.prenom}}</td>
+						                                             <td > {{etudiant.adresse.rue}}</td>
+						                                             <td >{{etudiant.adresse.ville}}</td>
+						                                             <td >{{etudiant.specialite}}</td>
+						                                            <td><a (click)="delete(etudiant.id)" ><img src="assets/image/delete.png" /></a>  
+						                                            <a (click)="getOone(etudiant.id)" data-toggle="modal" data-target=".bd-modal-lg"><img src="assets/image/refresh.png"/></a>
+						                                            <a (click)="coursList(etudiant.id)"><img src="assets/image/bookshelf.png" data-toggle="modal" data-target=".list" th:onclick="|affichercours('${etudiant.id}')|" /></a>  
+						                                            <a (click)="AddCoursToStudents(etudiant.id)"><img src="assets/image/notebook.png"  th:onclick="|getcours('${etudiant.id}')|" data-toggle="modal" data-target=".addbook-to-etudiant" /></a>  
+						                                            </td>
+						                                            
+						                                        </tr>
+						                                    
+						                                    </tbody>
+						                                    
+						                                </table>
+						                            </div>
+						                        </div>
+						                    </div>
+						                </div>
+					                   
+
+					
+					                   
+					                    
+					                </div>
+					                
+					             <!--  -->
+					             <div class="modal fade addbook-to-etudiant" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Ajouter un cours </h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                         <form #f="ngForm" (ngSubmit)="associate(f)" >   
+                        <div class="white-box">
+                            
+                                 <div class="form-group">
+                                    
+                                    <div class="col-md-12" id="new">
+                                        <label for="sel1">Select un cours:</label>
+									  <select class="form-control"  multiple="multiple"  name="lstchoix" [ngModel]="lstchoix" >
+									    <option *ngFor="let cour of ListCours" [ngValue]="cour.id"  >{{cour.nom}}</option>
+									  </select> </div>
+                                	</div>
+                                
+                                 
+                                
+                          <hr/>
+                              <input type="submit" value="Enregistrer" id="click"  class="btn btn-primary" />
+                              <input type="hidden" id="idetudiant"  name="idetudiant" [(ngModel)]="idetudiant" class="btn btn-primary" />
+                        </div>
+                        </form>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div>
+					             
+				<!-- Ajouter un cours a un etudiants -->  
+					             	 <div class="modal fade list" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Lists des cours  </h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                                
+                                <table class="table display nowrap" id="example" >
+						                                    <thead>
+						                                        <tr>
+						                                            <th> Name</th>
+						                                            <th> Option</th>
+						                                            
+						                                        </tr>
+						                                    </thead>
+						                                    <tbody id="cours">
+						                                         <tr *ngFor="let cour of listCours" >
+						                                            <td > {{cour.nom}}</td>
+						                                           
+						                                            
+						                                        </tr>
+						                                    </tbody>
+						                                    <tfoot>
+						                                     <tr>
+						                                            <th> Name</th>
+						                                             <th> Option</th>
+						                                        </tr>
+						                                    </tfoot>
+						                                </table>     
+                                
+                                 
+                                
+                         
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div>
+					          
+					 		        
+				<!--  --> 
+					                
+				<!-- Ajouter nouveaux Cours  -->	
+				
+				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Nouveau Etdiant</h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            <form class="form-horizontal form-material" (ngSubmit)="onSubmit()" >
+                                <div class="form-group">
+                                    <label class="col-md-12"> Nom</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre nom"  #nomref="ngModel" [(ngModel)]="etudiant.nom"  name="nom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Prenon</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre prenom" #prenomref="ngModel" [(ngModel)]="etudiant.prenom"   name="prenom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Adresse </label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse RUE " #rueaddresseref="ngModel" [(ngModel)]="etudiant.adresse.rue"   name="rue" class="form-control form-control-line"/> </div>
+                                        <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse vILLE" #villeaddresseref="ngModel" [(ngModel)]="etudiant.adresse.ville"  name="adresse.ville" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Specialite</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre specialite" #specilaliteeref="ngModel" [(ngModel)]="etudiant.specialite"  name="specialite" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                          <hr/>
+                              <input type="submit" value="Enregistrer"  class="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div> 
+					
+					
+						                
+				<!-- Modifeir nouveaux  -->	
+				
+				<div class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					    
+					    	<div class="modal-header">
+       							 <h5 class="modal-title" id="exampleModalLabel">Update Etdiant</h5>
+					      </div>
+					      	<div class="modal-body">
+						       <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            <form class="form-horizontal form-material" (ngSubmit)="updateinfo()" >
+                                <div class="form-group">
+                                    <label class="col-md-12"> Nom</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre nom"  #nomref="ngModel" [(ngModel)]="etudiant.nom"  name="nom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Prenon</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre prenom" #prenomref="ngModel" [(ngModel)]="etudiant.prenom"   name="prenom" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Adresse </label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse RUE " #rueaddresseref="ngModel" [(ngModel)]="etudiant.adresse.rue"   name="rue" class="form-control form-control-line"/> </div>
+                                        <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre adresse vILLE" #villeaddresseref="ngModel" [(ngModel)]="etudiant.adresse.ville"  name="adresse.ville" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-12">Specialite</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="entrer votre specialite" #specilaliteeref="ngModel" [(ngModel)]="etudiant.specialite"  name="specialite" class="form-control form-control-line"/> </div>
+                                </div>
+                                
+                          <hr/>
+                              <input type="submit" value="Enregistrer"  class="btn btn-primary" />
+                              <input type="hidden"  #idref="ngModel" [(ngModel)]="etudiant.id"  class="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>
+					      </div>
+					      	<div class="modal-footer">
+						        
+					      </div>
+					    	
+					      
+					    </div>
+					  </div>
+					</div> 
+					                
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2017 &copy; </footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    
